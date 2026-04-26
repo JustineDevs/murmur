@@ -41,14 +41,14 @@ Murmur is designed as an intelligence appliance for private research and structu
 
 Murmur is intentionally split into a few clear layers:
 
-| Layer | Purpose | Planned stack |
+| Layer | What it does | Project pieces |
 | --- | --- | --- |
-| Engine | Orchestration, runtime, agent loop | Go core, binary message flow, queue-based task execution |
-| Memory | Fast active state + durable persistence | BuntDB, BadgerDB, typed graph relations |
-| Knowledge | Human-readable long-term evidence | Obsidian markdown export |
-| Security | Sandboxed tools and policy checks | gVisor experiments, path restrictions, Casbin |
-| Desktop | Native user experience | Wails |
-| Monitoring | System health and node observability | Netdata |
+| Desktop App | Native user-facing application shell | Wails desktop app, frontend UI, app commands |
+| Application Core | Main product workflow and orchestration | project/session flow, graph -> environment -> simulation -> report -> interaction |
+| Agent Runtime | Executes local agent and tool workflows | Go-native runtime, worker execution, task handling, tool invocation boundaries |
+| Memory & Knowledge | Stores active state and exports usable knowledge | BuntDB hot state, BadgerDB durable state, Ent relationships, Obsidian markdown export |
+| Provider Layer | External model and service adapters | OpenAI-compatible LLM providers, embeddings, local model connectors |
+| System Layer | Local machine integration and safety boundaries | filesystem access rules, workspace/vault handling, process control, platform bindings |
 
 ## Design goals
 

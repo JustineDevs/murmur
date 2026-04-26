@@ -218,4 +218,4 @@ If you want to contribute:
 
 ## Acknowledgments
 
-Murmur is informed by the broader multi-agent simulation and local intelligence tooling ecosystem, including Go-first desktop patterns, local knowledge workflows, and the original Mirofish-style simulation direction.
+Murmur is forked from [go-mirofish](https://github.com/go-mirofish/go-mirofish), which itself builds on the broader [MiroFish](https://github.com/666ghj/MiroFish) direction. Murmur is developed as a standalone project with its own roadmap, release cycle, and product focus.

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./static/image/murmur-logo.png" alt="Murmur logo" width="42%"/>
+<img src="./static/image/murmur-logo.png" alt="Murmur logo" width="65%"/>
 
 **Murmur, local-first intelligence for your own machine**
 

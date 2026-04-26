@@ -1,237 +1,221 @@
 <div align="center">
 
-<img src="./static/image/go-mirofish-thumbnail (transparent).png" alt="go-mirofish logo" width="55%"/>
+<img src="./static/image/murmur-logo.png" alt="Murmur logo" width="42%"/>
 
-**go-mirofish, lightweight and local-first**
+**Murmur, local-first intelligence for your own machine**
 
-[![GitHub Stars](https://img.shields.io/github/stars/go-mirofish/go-mirofish?style=flat-square&color=DAA520)](https://github.com/go-mirofish/go-mirofish/stargazers)
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg?style=flat-square)](./LICENSE)
-[![Go Version](https://img.shields.io/badge/Go-1.21+-blue.svg?style=flat-square)](https://go.dev/)
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/justinedevs?style=flat-square&logo=github&label=Sponsor)](https://github.com/sponsors/go-mirofish)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-ffdd00?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/justinedevs)
-[![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/trader2g)
-<a href="https://www.producthunt.com/products/go-mirofish?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-go-mirofish" target="_blank" rel="noopener noreferrer"><img alt="go-mirofish - Fast local Go AI swarm engine – predict anything with agents | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1132196&amp;theme=light&amp;t=1777125819933"></a>
-Upload documents, describe what you want to predict, and get a full simulation report **on your laptop**.
+[![Go Version](https://img.shields.io/badge/Go-1.23+-00ADD8.svg?style=flat-square&logo=go)](https://go.dev/)
+[![Desktop](https://img.shields.io/badge/Desktop-Wails-6C47FF?style=flat-square)](https://wails.io/)
+[![Monitoring](https://img.shields.io/badge/Monitoring-Netdata-00AB44?style=flat-square)](https://www.netdata.cloud/)
+[![Status](https://img.shields.io/badge/Status-v0.1.0%20roadmap-orange?style=flat-square)](#roadmap)
+
+Private multi-agent reasoning, structured memory, and Obsidian-native knowledge workflows — running locally as a lightweight desktop intelligence appliance.
 
 </div>
 
-**Public preview (Vercel):** [gomirofish.vercel.app](https://gomirofish.vercel.app). Custom domain **go.mirofish.ai** is pending (subdomain access with the domain holder is still in progress).
-
 > [!NOTE]
-> **go-mirofish** is a fork of [MiroFish](https://github.com/666ghj/MiroFish) with the **same five-step product workflow** (graph → environment → simulation → report → interaction). This repository replaces the **original Python/Flask control plane and runtime** with a **Go gateway**, optional **OASIS**-style simulation in-process, and a **Vue** UI (Vite in development, static assets in the release image).
+> **Murmur** is a local-first evolution of the Mirofish-style workflow, redesigned around a Go-first runtime, durable local memory, native desktop packaging, and operator-owned data. The goal is simple: keep the intelligence loop on your machine, keep the evidence human-readable, and keep the stack small enough to run comfortably on normal hardware.
 
-**Project direction:** The **entire** public API, simulation orchestration, and benchmarks run in **Go**. There is no Python process in the product path. The default developer flow is **`make up`** (Docker gateway on **:3000**) **then** **`npm run dev`** (Vite on **:5173**). `GET /health` returns JSON with stack metadata and a `runtime` object.
+## Why Murmur
 
-## What go-mirofish vs MiroFish
+Most AI tools are cloud-first, opaque, and heavy. Murmur takes the opposite approach:
 
-| | MiroFish (upstream) | go-mirofish (this repo) |
+- **Local-first** — your notes, simulations, and memory stay on your device.
+- **Go-first** — the runtime, orchestration, and core services are designed for a small, efficient native stack.
+- **Obsidian-native** — Murmur turns internal agent state into readable markdown and linked evidence in your vault.
+- **Desktop-first** — the release target is a native app, not a browser tab full of infrastructure.
+- **Operator-friendly** — system health and node metrics can be monitored with Netdata when you need them.
+
+## What Murmur does
+
+Murmur is designed as an intelligence appliance for private research and structured reasoning. A typical flow looks like this:
+
+1. **Ingest context** — documents, notes, or seed materials are loaded into the local workspace.
+2. **Build memory** — facts, entities, and relationships are stored in Murmur’s local memory layers.
+3. **Run agents** — the swarm reasons over the context using a controlled local runtime.
+4. **Generate evidence** — reports, summaries, and linked facts are written back as structured outputs.
+5. **Sync to Obsidian** — the final knowledge is exported as markdown you can read, keep, and extend.
+
+## Core architecture
+
+Murmur is intentionally split into a few clear layers:
+
+| Layer | Purpose | Planned stack |
 | --- | --- | --- |
-| Control plane | Python / Flask (plus JS frontend) | **Go** (`gateway/`) — all `/api/*` routes |
-| Local dev | Python venv, Flask, often multi-service | **Docker** gateway + **local** Vite (`make up` + `npm run dev`) |
-| Simulation worker | Python-side integration | **Go-native** worker in the gateway process |
-| Benchmarks & examples | Mixed scripts | **Go** `go-mirofish-examples` + bench tools + `mirofish-hybrid` helpers |
-| Product Python | Required on the hot path | **Removed** (no `backend/.venv` in this tree) |
-| Design goal | Full MiroFish upstream feature set | **Local-first**: lower moving parts, one gateway binary, fewer host dependencies |
+| Engine | Orchestration, runtime, agent loop | Go core, binary message flow, queue-based task execution |
+| Memory | Fast active state + durable persistence | BuntDB, BadgerDB, typed graph relations |
+| Knowledge | Human-readable long-term evidence | Obsidian markdown export |
+| Security | Sandboxed tools and policy checks | gVisor experiments, path restrictions, Casbin |
+| Desktop | Native user experience | Wails |
+| Monitoring | System health and node observability | Netdata |
 
-> [!NOTE]
-> RAM/startup “targets” depend on model provider, graph size, and simulation profile. For supported setup, see [Installation](docs/getting-started/installation.md).
+## Design goals
+
+Murmur is being built around a few non-negotiable goals:
+
+- **Fast local runtime**
+- **Low moving parts**
+- **Private-by-default operation**
+- **Human-readable outputs**
+- **Native desktop distribution**
+- **Reasonable performance on mid-range hardware**
+- **Raspberry Pi support as a preview target, not a fake promise**
+
+## Realistic user experience
+
+For end users, Murmur should feel like an app — not a dev environment.
+
+### Release experience
+
+- Download the installer.
+- Open Murmur.
+- Choose a workspace or vault.
+- Add source material.
+- Run a reasoning workflow.
+- Read the exported markdown and reports locally.
+
+End users should **not** need to manually install Go, Docker, databases, or internal runtime dependencies.
+
+### Developer experience
+
+The development path is intentionally separate from the end-user path:
+
+- Backend/runtime in Go
+- Desktop shell via Wails
+- Local-first storage and export
+- Optional monitoring with Netdata during development or node operation
 
 ## Quick start
 
-**Canonical development:** Go gateway **in Docker** on :3000; Vue **locally** via Vite on :5173. You need **Docker**, **Node 18+**, and a one-time **`npm run setup`**.
+### End users
 
-1. **Clone**
+When Murmur reaches packaged releases, the intended path is:
 
-   ```bash
-   git clone https://github.com/go-mirofish/go-mirofish.git
-   cd go-mirofish
-   ```
+1. Download the app for your platform.
+2. Install and launch Murmur.
+3. Select or create a local workspace.
+4. Connect an Obsidian vault folder if you want markdown sync.
+5. Start a run.
 
-2. **Configure and install**
-
-   ```bash
-   cp .env.example .env
-   npm run setup
-   ```
-
-   Edit `.env` and set **`LLM_API_KEY`** and **`ZEP_API_KEY`**.
-
-3. **Start the API (Docker)**
-
-   ```bash
-   make up
-   ```
-
-   - API / health: [http://127.0.0.1:3000/health](http://127.0.0.1:3000/health)
-
-4. **Start the UI (local — second terminal)**
-
-   ```bash
-   npm run dev
-   ```
-
-   - App: [http://127.0.0.1:5173](http://127.0.0.1:5173) (Vite proxies `/api` to the gateway on :3000)
-
-**All-in-one Docker image** (static UI inside the container, no `npm run dev`):  
-`make up-release` (or `docker compose -f docker-compose.release.yml up -d --build`) — then use [http://localhost:3000](http://localhost:3000) for both UI and API. See [Installation](docs/getting-started/installation.md).
+### Developers
 
 > [!IMPORTANT]
-> You need **`LLM_API_KEY`** and **`ZEP_API_KEY`** for the default cloud path. For **local LLMs** or other OpenAI-compatible providers, see [Ollama setup](docs/configuration/ollama.md) and [OpenAI-compatible providers](docs/configuration/providers.md).
+> This section describes the development workflow, not the normal user install path.
 
-## How it works (5 steps)
+Expected local developer flow:
 
-1. **Graph building:** upload seed documents; build the knowledge graph
-2. **Environment setup:** extract entities, personas, and agent configuration
-3. **Simulation:** run the multi-agent social simulation
-4. **Report generation:** produce an analysis report from the simulated world
-5. **Deep interaction:** chat with agents and the report assistant
+- Go services run locally
+- Desktop shell runs through Wails
+- Local storage remains embedded
+- Monitoring is optional unless you are profiling or running a long-lived node
 
-## Showcase Proof
+## Architecture principles
 
-**1. Live gateway benchmark** (captured run — see [docs/report/benchmark-report.md](./docs/report/benchmark-report.md)):
+### 1. Local-first memory
 
-| Profile | Concurrency | Requests | Throughput (rps) | Error rate | p50 (ms) | p95 (ms) | p99 (ms) |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| load | 8 | 496 | 49.21 | 0.0000 | 1.50 | 13.89 | 21.96 |
-| stress | 16 | 1984 | 198.39 | 0.0000 | 1.91 | 2.74 | 4.41 |
-| soak | 4 | 596 | 19.87 | 0.0000 | 1.21 | 1.60 | 2.80 |
+Murmur separates hot memory from durable memory:
 
-**2. Bundled stack proof** (docs UI fixture — [`docs/bundled-benchmarks/live-stack__hybrid__latest.json`](./docs/bundled-benchmarks/live-stack__hybrid__latest.json)):
+- **Hot state** is for active agent thoughts and runtime state.
+- **Warm/durable state** is for preserved memory and structured artifacts.
+- **Vault export** is for human-readable long-term evidence.
 
-- Gateway + stress: **100/100** successes; p50 **9.15 ms**, p95 **27 ms** (fields in the JSON).
-- `benchmark.summary` includes `project_id`, `graph_id`, `simulation_id`, `report_id` and completed statuses for simulation and report.
+This keeps the runtime fast without turning the Obsidian vault into the execution database.
 
-**3. Example runner (`small` profile, deterministic local runs)** — from committed [`*__small__latest.json`](./docs/bundled-benchmarks/):
+### 2. Obsidian-native knowledge
 
-| Example | Profile | Eval | Startup (ms) | Runtime (ms) | Primary artifacts |
-| --- | --- | --- | ---: | ---: | --- |
-| Product Launch PR War Room | `small` | pass | 1.05 | 2.63 | `risk_report.json` |
-| Hyper-Local Urban Planning | `small` | pass | 1.05 | 8.86 | `coalition_highway.json`, `coalition_park.json` |
-| Zero-Day Cyber Incident Drill | `small` | pass | 1.06 | 10.25 | `incident_report.json` |
-| De-Fi Sentiment Stress-Test | `small` | pass | 1.05 | 2.61 | `liquidation_cascade_forecast.json` |
-| Lost Ending Literary Simulator | `small` | pass | 1.05 | 9.69 | `draft_ending.json`, `draft_ending.txt` |
+Obsidian is not treated as a gimmick integration. Murmur is designed to export readable markdown notes, fact links, and report artifacts that stay useful even outside the app.
 
-**Regenerate:** load/stress table → `make benchmark-live`. Merge live stack into bundled JSON → `cd gateway && go run ./cmd/mirofish-hybrid merge-bundled`.
+### 3. Safe tool execution
 
-## Examples & Benchmarks
+Tool use is planned to run behind explicit policy boundaries:
 
-Run these from the **repository root** (they invoke `go` with `gateway/` on the module path).
+- restricted file access
+- allowlisted actions
+- bounded execution
+- auditability
+- sandbox-first experiments where supported
 
-### Example templates (local deterministic runner)
+### 4. Small native footprint
 
-| Task | Command |
+Murmur is being built as a native desktop app instead of an Electron-style bundle. The aim is a lightweight release that starts quickly, stays responsive, and runs locally without dragging in unnecessary moving parts.
+
+## Monitoring
+
+Murmur uses **Netdata** as the overall monitoring layer for node health and runtime observability.
+
+Use Netdata when you want to monitor:
+
+- CPU
+- memory
+- disk
+- temperature
+- process health
+- long-running local node behavior
+
+For most normal desktop users, monitoring is optional. For advanced users running Murmur continuously or on a Raspberry Pi, it becomes much more useful.
+
+## Hardware expectations
+
+Murmur is being designed for normal machines first.
+
+| Device | Expected support |
 | --- | --- |
-| List example keys | `go run ./gateway/cmd/go-mirofish-examples --list` |
-| Run one example | `go run ./gateway/cmd/go-mirofish-examples --example product-launch-war-room --profile medium` |
-| Smoke all (`small`) | `go run ./gateway/cmd/go-mirofish-examples --all --smoke-only --profile small` |
-| Bench all (`medium`) | `go run ./gateway/cmd/go-mirofish-examples --all --bench-only --profile medium` |
-
-### HTTP benchmark & wiring (live gateway on :3000)
-
-| Task | Command |
-| --- | --- |
-| **Live** load + stress + soak + Markdown report | `make benchmark-live` (alias for `go run ./cmd/mirofish-hybrid live-benchmark` in `gateway/`) |
-| HTTP benchmark only (gateway already up) | `make benchmark` or `make benchmark-run` |
-| Full server-bench (Docker up + wait + bench) | `make server-bench` |
-| Every route / contract report | `make api-wiring-report` |
-
-### `mirofish-hybrid` (Go; replaces old `scripts/hybrid/*`)
-
-| Subcommand | Purpose |
-| --- | --- |
-| `cd gateway && go run ./cmd/mirofish-hybrid live-benchmark` | Build gateway + `frontend/dist`, run local gateway, write `benchmark/.../live-benchmark.json` + `docs/report/benchmark-report.md` |
-| `cd gateway && go run ./cmd/mirofish-hybrid merge-bundled` | Merge live stack fields into `docs/bundled-benchmarks/*__*__latest.json` |
-| `cd gateway && go run ./cmd/mirofish-hybrid stress-probe` | Concurrent `/health` probe (JSON to stdout) |
-| `cd gateway && go run ./cmd/mirofish-hybrid api-smoke` | Full API walk (ontology → report); needs real keys / services |
-
-**npm helper:** `bash scripts/dev/benchmark.sh live|merge-bundled|smoke|examples|benchmark` forwards to the same tools.
-
-## 🌐 Live Demo
-
-- Static playground (zero-cost replay): [gomirofish.vercel.app](https://gomirofish.vercel.app)
-
-## 📸 Screenshots
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="static/image/Screenshot/Screenshot(1).png" width="520" />
-        <br />
-        <sub><b>Home / entry</b></sub>
-      </td>
-      <td align="center">
-        <img src="static/image/Screenshot/Screenshot(2).png" width="520" />
-        <br />
-        <sub><b>Simulation run</b></sub>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="static/image/Screenshot/Screenshot(3).png" width="520" />
-        <br />
-        <sub><b>Report generation</b></sub>
-      </td>
-      <td align="center">
-        <img src="static/image/Screenshot/Screenshot(4).png" width="520" />
-        <br />
-        <sub><b>Report timeline / tools</b></sub>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="static/image/Screenshot/Screenshot(5).png" width="520" />
-        <br />
-        <sub><b>Simulation history</b></sub>
-      </td>
-      <td align="center">
-        <img src="static/image/Screenshot/Screenshot(6).png" width="520" />
-        <br />
-        <sub><b>Deep interaction</b></sub>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="static/image/Screenshot/Screenshot(7).png" width="520" />
-        <br />
-        <sub><b>Split: graph, workbench &amp; system terminal</b></sub>
-      </td>
-      <td align="center">
-        <img src="static/image/Screenshot/Screenshot(8).png" width="520" />
-        <br />
-        <sub><b>Graph view &amp; node details</b></sub>
-      </td>
-    </tr>
-  </table>
-</div>
-
-## Go Stack
-
-- Go owns the entire control plane, API surface, simulation worker, example suite, benchmark suite, provider layer, memory layer, and route orchestration
-- Python backend is fully removed from the product path
-- **Development:** Vue + Vite on :5173 against the Docker gateway
-- **Release image:** static Vue in the `release` Docker stage (`docker-compose.release.yml`) when you need a single container without local Node
-
-## Hardware compatibility
-
-| Device | RAM | Works? |
-| --- | ---: | --- |
-| Desktop / laptop | 8GB | Yes |
-| Desktop / laptop | 4GB | Yes (smaller simulations) |
-| Raspberry Pi 5 | 4GB | ARM64-ready; pending on-device validation |
-| Raspberry Pi 4 | 4GB | ARM64-ready; likely tight headroom, pending on-device validation |
+| Windows desktop / laptop | Primary release target |
+| Linux desktop / laptop | Supported developer and advanced-user target |
+| macOS | Planned desktop target |
+| Raspberry Pi 5 | Preview / appliance target |
+| Raspberry Pi 4 | Experimental / constrained target |
 
 > [!WARNING]
-> Large graphs, long simulations, or heavy models can exceed **4GB** systems. Start with short runs and smaller seeds.
+> Large graphs, long-running agent loops, and heavy models can still exceed lightweight systems. Murmur is local-first, not magic.
+
+## Use cases
+
+Murmur is a good fit for:
+
+- private research workflows
+- local evidence synthesis
+- multi-agent scenario exploration
+- personal or team knowledge work
+- Obsidian-linked analysis
+- low-infrastructure intelligence appliances
+- Raspberry Pi experimentation for always-on local nodes
+
+## Roadmap
+
+### v0.1.0 target
+
+The current target is a realistic “industrial-grade” local release with:
+
+- Go-first runtime
+- embedded local memory
+- Obsidian markdown export
+- native desktop shell
+- monitoring support
+- safer tool execution
+- Windows-first stable packaging
+- Raspberry Pi preview support
+
+## Status
+
+Murmur is currently in active architecture and implementation planning. The project direction is clear, but the release is intentionally scoped to stay realistic for a solo developer building a stable local-first system.
 
 ## Contributing
 
-Issues and PRs are welcome. Use this repo for **go-mirofish** changes; upstream product discussion stays with [MiroFish](https://github.com/666ghj/MiroFish). Start with **[CONTRIBUTING.md](CONTRIBUTING.md)** and **[docs/contributing/README.md](docs/contributing/README.md)**.
+Issues, discussions, and thoughtful PRs are welcome.
+
+If you want to contribute:
+
+1. Open an issue first for major changes.
+2. Keep changes aligned with the local-first design goals.
+3. Avoid introducing unnecessary infrastructure or cloud-only assumptions.
+4. Prefer simple, testable Go-first implementations.
 
 ## License
 
-[AGPL-3.0](./LICENSE).
+[AGPL-3.0](./LICENSE)
 
 ## Acknowledgments
 
-Derived from **[MiroFish](https://github.com/666ghj/MiroFish)**. Simulation is powered by **[OASIS](https://github.com/camel-ai/oasis)**. Thanks to the CAMEL-AI team.
+Murmur is informed by the broader multi-agent simulation and local intelligence tooling ecosystem, including Go-first desktop patterns, local knowledge workflows, and the original Mirofish-style simulation direction.

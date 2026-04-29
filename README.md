@@ -214,8 +214,14 @@ If you want to contribute:
 
 ## License
 
-[AGPL-3.0](./LICENSE)
+[Apache 2.0](./LICENSE)
 
 ## Acknowledgments
+Murmur is forked from go-mirofish, which itself builds on the broader [MiroFish](https://github.com/666ghj/MiroFish) direction. Murmur is developed as a standalone project with its own roadmap, release cycle, and product focus.
+The project is also made possible by the following open-source ecosystem:
+## Core Infrastructure
 
-Murmur is forked from [go-mirofish](https://github.com/go-mirofish/go-mirofish), which itself builds on the broader [MiroFish](https://github.com/666ghj/MiroFish) direction. Murmur is developed as a standalone project with its own roadmap, release cycle, and product focus.
+* Runtime & Orchestration: [Encore](https://github.com/encoredev/encore), [River](https://github.com/riverqueue/river), [Ent](https://github.com/ent/ent), [Protobuf](https://github.com/protocolbuffers/protobuf)
+* Security & Isolation: [gVisor](https://github.com/google/gvisor), [CubeSandbox](https://github.com/TencentCloud/CubeSandbox), [Casbin](https://github.com/casbin/casbin), [age](https://github.com/FiloSottile/age)
+* Storage & Memory: [BadgerDB](https://github.com/dgraph-io/badger), [CortexaDB](https://github.com/anaslimem/CortexaDB), [QuestDB](https://github.com/questdb/questdb)
+* Desktop & UI: [Wails](https://github.com/wailsapp/wails), [Xyflow](https://github.com/xyflow/xyflow), [Obsidian](https://github.com/obsidianmd/obsidian-releases)
